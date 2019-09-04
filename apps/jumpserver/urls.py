@@ -13,6 +13,7 @@ from .swagger import get_swagger_view
 api_v1 = [
    path('users/v1/', include('users.urls.api_urls', namespace='api-users')),
    path('assets/v1/', include('assets.urls.api_urls', namespace='api-assets')),
+   path('systems/v1/', include('systems.urls.api_urls', namespace='api-systems')),
    path('perms/v1/', include('perms.urls.api_urls', namespace='api-perms')),
    path('terminal/v1/', include('terminal.urls.api_urls', namespace='api-terminal')),
    path('ops/v1/', include('ops.urls.api_urls', namespace='api-ops')),
@@ -32,6 +33,7 @@ api_v2 = [
 
 app_view_patterns = [
     path('users/', include('users.urls.views_urls', namespace='users')),
+    path('systems/', include('systems.urls.views_urls', namespace='systems')),
     path('assets/', include('assets.urls.views_urls', namespace='assets')),
     path('perms/', include('perms.urls.views_urls', namespace='perms')),
     path('terminal/', include('terminal.urls.views_urls', namespace='terminal')),

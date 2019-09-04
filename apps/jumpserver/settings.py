@@ -62,6 +62,7 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 INSTALLED_APPS = [
     'orgs.apps.OrgsConfig',
     'users.apps.UsersConfig',
+    'systems.apps.SystemsConfig',
     'assets.apps.AssetsConfig',
     'perms.apps.PermsConfig',
     'ops.apps.OpsConfig',
