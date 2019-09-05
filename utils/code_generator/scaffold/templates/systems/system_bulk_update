@@ -1,3 +1,4 @@
+'''
 {% extends '_base_create_update.html' %}
 {% load static %}
 {% load bootstrap3 %}
@@ -65,3 +66,4 @@
     }
 </script>
 {% endblock %}
+'''

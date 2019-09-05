@@ -1,0 +1,8 @@
+'''
+{% extends '_import_modal.html' %}
+{% load i18n %}
+
+{% block modal_title%}{% trans "Import {app_name}s" %}{% endblock %}
+
+{% block import_modal_download_template_url %}{% url "api-{app_name}s:{app_name}-list" %}{% endblock %}
+'''

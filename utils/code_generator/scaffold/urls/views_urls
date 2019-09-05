@@ -1,0 +1,17 @@
+'''
+from __future__ import absolute_import
+
+from django.urls import path
+
+from .. import views
+
+app_name = '{app_name}s'
+
+urlpatterns = [
+    path('{app_name}/', views.{app_name_first_uppercase}ListView.as_view(), name='{app_name}-list'),
+    path('{app_name}/create/', views.{app_name_first_uppercase}CreateView.as_view(), name='{app_name}-create'),
+    path('{app_name}/<uuid:pk>/update/', views.{app_name_first_uppercase}UpdateView.as_view(), name='{app_name}-update'),
+    path('{app_name}/update/', views.{app_name_first_uppercase}BulkUpdateView.as_view(), name='{app_name}-bulk-update'),
+    path('{app_name}/<uuid:pk>/', views.{app_name_first_uppercase}DetailView.as_view(), name='{app_name}-detail'),
+]
+'''

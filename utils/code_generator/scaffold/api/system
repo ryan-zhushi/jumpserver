@@ -1,0 +1,26 @@
+'''
+# -*- coding: utf-8 -*-
+
+from rest_framework_bulk import BulkModelViewSet
+from rest_framework.pagination import LimitOffsetPagination
+
+from common.permissions import IsOrgAdmin
+from common.mixins import IDInCacheFilterMixin
+from common.utils import get_logger
+from ..models import {app_name_first_uppercase}
+from ..serializers import {app_name_first_uppercase}Serializer
+
+logger = get_logger(__name__)
+__all__ = [
+    '{app_name_first_uppercase}ViewSet',
+]
+
+
+class {app_name_first_uppercase}ViewSet(IDInCacheFilterMixin, BulkModelViewSet):
+    filter_fields = ({app_fields})
+    search_fields = filter_fields
+    queryset = {app_name_first_uppercase}.objects.all()
+    serializer_class = {app_name_first_uppercase}Serializer
+    permission_class = IsOrgAdmin
+    pagination_class = LimitOffsetPagination
+'''

@@ -1,0 +1,25 @@
+'''
+# -*- coding: utf-8 -*-
+
+from django import forms
+from django.utils.translation import ugettext_lazy as _
+
+from orgs.mixins import OrgModelForm
+from ..models import {app_name_first_uppercase}
+
+
+class {app_name_first_uppercase}Form(OrgModelForm):
+
+    class Meta:
+        model = {app_name_first_uppercase}
+        fields = [
+            {app_fields}
+        ]
+
+
+class {app_name_first_uppercase}BulkUpdateForm(OrgModelForm):
+
+    class Meta:
+        model = {app_name_first_uppercase}
+        fields = [{app_bulkupdate_fields}]
+'''
