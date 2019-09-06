@@ -11,6 +11,7 @@ app_name = 'systems'
 
 router = BulkRouter()
 router.register(r'systems', api.SystemViewSet, 'system')
+router.register(r'departments', api.DepartmentViewSet, 'department')
 
 urlpatterns = [
 

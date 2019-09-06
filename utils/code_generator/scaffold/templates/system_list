@@ -33,6 +33,7 @@
                 <input id="" type="checkbox" class="ipt_check_all">
             </th>
             {app_header_fields}
+            <th class="text-center">{{% trans 'Action' %}}</th>
         </tr>
     </thead>
     <tbody>
@@ -51,8 +52,8 @@
         </div>
     </div>
 </div>
-{{% include "{app_name}s/_{app_name}_import_modal.html" %}}
-{{% include "{app_name}s/_{app_name}_update_modal.html" %}}
+{{% include "{module_name}s/_{app_name}_import_modal.html" %}}
+{{% include "{module_name}s/_{app_name}_update_modal.html" %}}
 {{% endblock %}}
 {{% block content_bottom_left %}}{{% endblock %}}
 {{% block custom_foot_js %}}
@@ -84,10 +85,7 @@ function initTable() {{
         ],
         ajax_url: '{{% url "api-{module_name}s:{app_name}-list" %}}',
         columns: [
-            {{data: function(){{return ""}}}}, {{data: "name" }},
-            {{data: "homepage_url", orderable: false}},
-            {{data: "admin_staff"}}, {{data: "admin_staff_phone"}},
-            {{data: "department"}}, {{data: "id", orderable: false }}
+            {{data: function(){{return ""}}}}, {app_column_fields}, {{data: "id", orderable: false }}
         ],
         op_html: $('#actions').html()
     }};
