@@ -21,7 +21,7 @@ class Department(OrgModelMixin):
     coordinator_ecard = models.CharField(max_length=128, unique=True, verbose_name=_('Coordinator ecard'))
     coordinator_email = models.EmailField(max_length=128, unique=True, verbose_name=_('Coordinator Email'))
     coordinator_phone = models.CharField(max_length=20, verbose_name=_('Coordinator phone'))
-    coordinator_qq = models.CharField(max_length=128, verbose_name=_('Coordinator qq'))
+    coordinator_qq = models.CharField(max_length=128, verbose_name=_('Coordinator QQ'))
     date_created = models.DateTimeField(auto_now_add=True, verbose_name=('Date created'))
 
     class Meta:
