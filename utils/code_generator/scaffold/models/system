@@ -1,4 +1,3 @@
-'''
 # -*- coding: utf-8 -*-
 
 import uuid
@@ -21,4 +20,3 @@ class {app_name_first_uppercase}(OrgModelMixin):
 
     def __str__(self):
         return self.name
-'''

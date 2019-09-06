@@ -1,18 +1,17 @@
-'''
-{% extends 'base.html' %}
-{% load static %}
-{% load i18n %}
+{{% extends 'base.html' %}}
+{{% load static %}}
+{{% load i18n %}}
 
-{% block custom_head_css_js %}
-    <link href="{% static 'css/plugins/select2/select2.min.css' %}" rel="stylesheet">
-    <link href="{% static "css/plugins/sweetalert/sweetalert.css" %}" rel="stylesheet">
-    <link href="{% static "css/plugins/datatables/datatables.min.css" %}" rel="stylesheet">
-    <link href="{% static "css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" %}" rel="stylesheet">
-    <script src="{% static 'js/plugins/select2/select2.full.min.js' %}"></script>
-    <script src="{% static "js/plugins/sweetalert/sweetalert.min.js" %}"></script>
-    <script src="{% static "js/plugins/datatables/datatables.min.js" %}"></script>
-{% endblock %}
-{% block content %}
+{{% block custom_head_css_js %}}
+    <link href="{{% static 'css/plugins/select2/select2.min.css' %}}" rel="stylesheet">
+    <link href="{{% static "css/plugins/sweetalert/sweetalert.css" %}}" rel="stylesheet">
+    <link href="{{% static "css/plugins/datatables/datatables.min.css" %}}" rel="stylesheet">
+    <link href="{{% static "css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" %}}" rel="stylesheet">
+    <script src="{{% static 'js/plugins/select2/select2.full.min.js' %}}"></script>
+    <script src="{{% static "js/plugins/sweetalert/sweetalert.min.js" %}}"></script>
+    <script src="{{% static "js/plugins/datatables/datatables.min.js" %}}"></script>
+{{% endblock %}}
+{{% block content %}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-sm-12">
@@ -20,14 +19,14 @@
                     <div class="panel-options">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="{% url '{app_name}s:{app_name}-detail' pk={app_name}.id %}" class="text-center"><i class="fa fa-laptop"></i> {% trans 'System detail' %} </a>
+                                <a href="{{% url '{module_name}s:{app_name}-detail' pk={app_name}.id %}}" class="text-center"><i class="fa fa-laptop"></i> {{% trans 'System detail' %}} </a>
                             </li>
                             <li class="pull-right">
-                                <a class="btn btn-outline btn-default" href="{% url '{app_name}s:{app_name}-update' pk={app_name}.id %}"><i class="fa fa-edit"></i>{% trans 'Update' %}</a>
+                                <a class="btn btn-outline btn-default" href="{{% url '{module_name}s:{app_name}-update' pk={app_name}.id %}}"><i class="fa fa-edit"></i>{{% trans 'Update' %}}</a>
                             </li>
                             <li class="pull-right">
                                 <a class="btn btn-outline btn-danger btn-delete-{app_name}">
-                                    <i class="fa fa-trash-o"></i>{% trans 'Delete' %}
+                                    <i class="fa fa-trash-o"></i>{{% trans 'Delete' %}}
                                 </a>
                             </li>
                         </ul>
@@ -36,7 +35,7 @@
                         <div class="col-sm-12" style="padding-left: 0">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label"><b>{{ {app_name}.name }}</b></span>
+                                    <span class="label"><b>{{{{ {app_name}.name }}}}</b></span>
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
@@ -60,17 +59,16 @@
             </div>
         </div>
     </div>
-{% endblock %}
-{% block custom_foot_js %}
+{{% endblock %}}
+{{% block custom_foot_js %}}
 <script>
-$(document).on('click', '.btn-delete-{app_name}', function () {
+$(document).on('click', '.btn-delete-{app_name}', function () {{
     var $this = $(this);
-    var name = "{{ {app_name}.name }}";
-    var uid = "{{ {app_name}.id }}";
-    var the_url = '{% url "api-{app_name}s:{app_name}-detail" pk=DEFAULT_PK %}'.replace('{{ DEFAULT_PK }}', uid);
-    var redirect_url = "{% url '{app_name}s:{app_name}-list' %}";
+    var name = "{{{{ {app_name}.name }}}}";
+    var uid = "{{{{ {app_name}.id }}}}";
+    var the_url = '{{% url "api-{module_name}s:{app_name}-detail" pk=DEFAULT_PK %}}'.replace('{{{{ DEFAULT_PK }}}}', uid);
+    var redirect_url = "{{% url '{module_name}s:{app_name}-list' %}}";
     objectDelete($this, name, the_url, redirect_url);
-})
+}})
 </script>
-{% endblock %}
-'''
+{{% endblock %}}

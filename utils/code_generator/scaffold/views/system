@@ -1,4 +1,3 @@
-'''
 # -*- coding: utf-8 -*-
 
 from django.contrib import messages
@@ -141,4 +140,3 @@ class {app_name_first_uppercase}BulkUpdateView(PermissionsMixin, TemplateView):
         }}
         kwargs.update(context)
         return super().get_context_data(**kwargs)
-'''

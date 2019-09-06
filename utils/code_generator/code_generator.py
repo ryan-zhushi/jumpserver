@@ -3,114 +3,86 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DST_DIR = os.path.join(BASE_DIR, 'dst')
+DIST_DIR = os.path.join(BASE_DIR, 'dist')
+CHAR_FIELD_DEF = " = models.CharField(max_length=128, blank=True, null=True, verbose_name=_('"
+BOOTSTRAP_FIELD_DEF = '''
+                            {%% bootstrap_field form.%s layout="horizontal" %%}'''
+DETAIL_FIELD_DEF = '''
+                                        <tr class="no-borders-tr">
+                                            <td width="20%">{{% trans '{0}' %}}:</td>
+                                            <td><b>{{{{ system.{1} }}}}</b></td>
+                                        </tr>'''
+HEADER_FIELD_DEF = '''
+            <th class="text-center">{%% trans '%s' %%}</th>'''
+
+fields = [
+    'name', 'principal', 'principal_duty',
+    'principal_ecard', 'principal_email', 'principal_phone',
+    'coordinator', 'coordinator_duty', 'coordinator_ecard',
+    'coordinator_email', 'coordinator_phone', 'coordinator_qq',
+]
+
+bulkupdate_fields = fields
+
+char_field_list = []
+bootstrap_field_list = []
+detail_field_list = []
+header_field_list = []
+
+for field in fields:
+    split_f = field.split('_')
+    char_field_list.append(field + CHAR_FIELD_DEF + split_f[0].capitalize() + ' ' + ' '.join(split_f[1:]) + "'))")
+    bootstrap_field_list.append(BOOTSTRAP_FIELD_DEF % field)
+    detail_field_list.append(DETAIL_FIELD_DEF.format(split_f[0].capitalize() + ' ' + ' '.join(split_f[1:]), field))
+    header_field_list.append(HEADER_FIELD_DEF % field.capitalize())
 
 params = {
+    'module_name': 'system',
     'app_name': 'department',
-    'app_fields': [
-        'name', 'principal', 'principal_duty',
-        'principal_ecard', 'principal_email', 'principal_phone',
-        'coordinator', 'coordinator_duty', 'coordinator_ecard',
-        'coordinator_email', 'coordinator_phone', 'coordinator_qq',
-    ],
-    'app_bulkupdate_fields': [
-        'name', 'principal', 'principal_duty',
-        'principal_ecard', 'principal_email', 'principal_phone',
-        'coordinator', 'coordinator_duty', 'coordinator_ecard',
-        'coordinator_email', 'coordinator_phone', 'coordinator_qq',
-    ],
+    'app_name_first_uppercase': 'Department',
+    'app_fields': "'" + "\', '".join(fields) + "'",
+    'app_bulkupdate_fields': "'" + "\', '".join(bulkupdate_fields) + "'",
+    'app_model_fields': '\n    '.join(char_field_list),
+    'app_bootstrap_fields': ''.join(bootstrap_field_list),
+    'app_detail_fields': ''.join(detail_field_list),
+    'app_header_fields': ''.join(header_field_list),
 }
-
-charfield_def = " = models.CharField(max_length=128, blank=True, null=True, verbose_name=_('"
-app_model_fields = charfield_def
 
 
 def code_gen(src, dst, filename='', **kwargs):
     with open(src) as in_f:
         code_str = in_f.read()
-        dst_file = (kwargs['app_name'] if not filename else filename) + '.py'
+        dst_file = kwargs['app_name'] + '.py' if not filename else filename
         if not os.path.isdir(dst):
             os.makedirs(dst)
         with open(os.path.join(dst, dst_file), 'w') as out_f:
             code = code_str.format(**kwargs)
-            print(code.strip("'\n"), file=out_f)
+            print(code, file=out_f)
 
 
 if __name__ == '__main__':
-    if not os.path.isdir(DST_DIR):
-        os.makedirs(DST_DIR)
+    if not os.path.isdir(DIST_DIR):
+        os.makedirs(DIST_DIR)
 
-    # api
-    src = os.path.join(BASE_DIR, 'scaffold', 'api', 'system')
-    dst = os.path.join(DST_DIR, params['app_name'], 'api')
-    api_params = {
-        'app_name': params['app_name'],
-        'app_name_first_uppercase': params['app_name'].capitalize(),
-        'app_fields': "'" + "\', '".join(params['app_fields']) + "'",
-    }
-    code_gen(src, dst, **api_params)
+    src_dirs = ['api', 'forms', 'models', 'serializers', 'views']
 
-    # forms
-    src = os.path.join(BASE_DIR, 'scaffold', 'forms', 'system')
-    dst = os.path.join(DST_DIR, params['app_name'], 'forms')
-    api_params = {
-        'app_name': params['app_name'],
-        'app_name_first_uppercase': params['app_name'].capitalize(),
-        'app_fields': "'" + "\', '".join(params['app_fields']) + "'",
-        'app_bulkupdate_fields': "'" + "\', '".join(params['app_bulkupdate_fields']) + "'",
-    }
-    code_gen(src, dst, **api_params)
+    for dir in src_dirs:
+        src = os.path.join(BASE_DIR, 'scaffold', dir, 'system')
+        dst = os.path.join(DIST_DIR, params['module_name'] + 's', dir)
+        code_gen(src, dst, **params)
 
-    # models
-    src = os.path.join(BASE_DIR, 'scaffold', 'models', 'system')
-    dst = os.path.join(DST_DIR, params['app_name'], 'models')
-    list = []
-    for field in params['app_fields']:
-        var = field.split('_')
-        list.append(field + charfield_def + var[0].capitalize() + ' ' + ' '.join(var[1:]) + "'))")
-    api_params = {
-        'app_name': params['app_name'],
-        'app_name_first_uppercase': params['app_name'].capitalize(),
-        'app_model_fields': '\n    '.join(list),
-    }
-    code_gen(src, dst, **api_params)
+    # templates
+    pages = ['_%s_import_modal', '_%s_update_modal', '%s_bulk_update', '%s_create_update', '%s_detail', '%s_list']
+    for page in pages:
+        src = os.path.join(BASE_DIR, 'scaffold', 'templates', page % 'system')
+        dst = os.path.join(DIST_DIR, params['module_name'] + 's', 'templates')
+        code_gen(src, dst, filename=page % params['app_name'] + '.html', **params)
 
-    # serializers
-    src = os.path.join(BASE_DIR, 'scaffold', 'serializers', 'system')
-    dst = os.path.join(DST_DIR, params['app_name'], 'serializers')
-    api_params = {
-        'app_name': params['app_name'],
-        'app_name_first_uppercase': params['app_name'].capitalize(),
-        'app_fields': "'" + "\', '".join(params['app_fields']) + "'",
-    }
-    code_gen(src, dst, **api_params)
-
-    # # templates
-    # src = os.path.join(BASE_DIR, 'scaffold', 'api', 'system')
-    # dst = os.path.join(DST_DIR, params['app_name'], 'api')
-    # api_params = {
-    #     'app_name': params['app_name'],
-    #     'app_fields': ', '.join(params['app_fields']),
-    # }
-    # code_gen(src, dst, **api_params)
-    #
     # urls
-    api_params = {
-        'app_name': params['app_name'],
-        'app_name_first_uppercase': params['app_name'].capitalize(),
-    }
-
     src = os.path.join(BASE_DIR, 'scaffold', 'urls', 'api_urls')
-    dst = os.path.join(DST_DIR, params['app_name'], 'urls')
-    code_gen(src, dst, filename='api_urls', **api_params)
+    dst = os.path.join(DIST_DIR, params['module_name'] + 's', 'urls')
+    code_gen(src, dst, filename='api_urls' + '.py', **params)
 
     src = os.path.join(BASE_DIR, 'scaffold', 'urls', 'views_urls')
-    dst = os.path.join(DST_DIR, params['app_name'], 'urls')
-    code_gen(src, dst, filename='views_urls', **api_params)
-
-    # views
-    src = os.path.join(BASE_DIR, 'scaffold', 'views', 'system')
-    dst = os.path.join(DST_DIR, params['app_name'], 'views')
-    code_gen(src, dst, **api_params)
-
-
+    dst = os.path.join(DIST_DIR, params['module_name'] + 's', 'urls')
+    code_gen(src, dst, filename='views_urls' + '.py', **params)
