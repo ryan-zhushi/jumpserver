@@ -20,4 +20,6 @@ class {app_name_first_uppercase}BulkUpdateForm(OrgModelForm):
 
     class Meta:
         model = {app_name_first_uppercase}
-        fields = [{app_bulkupdate_fields}]
+        fields = [
+            {app_bulkupdate_fields}
+        ]

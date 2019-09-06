@@ -12,7 +12,10 @@ class DepartmentForm(OrgModelForm):
     class Meta:
         model = Department
         fields = [
-            'name', 'principal', 'principal_duty', 'principal_ecard', 'principal_email', 'principal_phone', 'coordinator', 'coordinator_duty', 'coordinator_ecard', 'coordinator_email', 'coordinator_phone', 'coordinator_qq'
+            'name', 'principal', 'principal_duty', 'principal_ecard',
+            'principal_email', 'principal_phone', 'coordinator',
+            'coordinator_duty', 'coordinator_ecard', 'coordinator_email',
+            'coordinator_phone', 'coordinator_qq'
         ]
 
 
@@ -20,5 +23,10 @@ class DepartmentBulkUpdateForm(OrgModelForm):
 
     class Meta:
         model = Department
-        fields = ['name', 'principal', 'principal_duty', 'principal_ecard', 'principal_email', 'principal_phone', 'coordinator', 'coordinator_duty', 'coordinator_ecard', 'coordinator_email', 'coordinator_phone', 'coordinator_qq']
+        fields = [
+            'name', 'principal', 'principal_duty', 'principal_ecard',
+            'principal_email', 'principal_phone', 'coordinator',
+            'coordinator_duty', 'coordinator_ecard', 'coordinator_email',
+            'coordinator_phone', 'coordinator_qq'
+        ]
 
