@@ -20,5 +20,10 @@ class SystemViewSet(IDInCacheFilterMixin, BulkModelViewSet):
     search_fields = filter_fields
     queryset = System.objects.all()
     serializer_class = SystemSerializer
-    permission_classe = IsOrgAdmin
+    permission_class = IsOrgAdmin
     pagination_class = LimitOffsetPagination
+    
+    def get_queryset(self):
+        if not self.request.user.is_superuser:
+            self.queryset = self.request.user.department.systems
+        return self.queryset

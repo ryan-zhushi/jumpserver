@@ -41,11 +41,17 @@ class UserCreateUpdateFormMixin(OrgModelForm):
     class Meta:
         model = User
         fields = [
-            'username', 'name', 'email', 'groups', 'wechat',
+            'username', 'name', 'email', 'department', 'groups', 'wechat',
             'phone', 'role', 'date_expired', 'comment', 'otp_level'
         ]
         widgets = {
             'otp_level': forms.RadioSelect(),
+            'department': forms.Select(
+                attrs={
+                    'class': 'select2',
+                    'data-placeholder': _('Department')
+                }
+            ),
             'groups': forms.SelectMultiple(
                 attrs={
                     'class': 'select2',

@@ -335,6 +335,10 @@ class User(AuthMixin, TokenMixin, RoleMixin, MFAMixin, AbstractUser):
         'users.UserGroup', related_name='users',
         blank=True, verbose_name=_('User group')
     )
+    department = models.ForeignKey(
+        'systems.Department', blank=True, null=True, related_name='department',
+         verbose_name=_('Department'), on_delete=models.SET_NULL,
+    )
     role = models.CharField(
         choices=RoleMixin.ROLE_CHOICES, default='User', max_length=10,
         blank=True, verbose_name=_('Role')

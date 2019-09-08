@@ -15,6 +15,14 @@ class SystemForm(OrgModelForm):
             'name', 'homepage_url', 'admin_url', 'admin_staff',
             'admin_staff_phone', 'department',
         ]
+        widgets = {
+            'department': forms.Select(
+                attrs={
+                    'class': 'select2',
+                    'data-placeholder': _('Department')
+                }
+            )
+        }
 
 
 class SystemBulkUpdateForm(OrgModelForm):
