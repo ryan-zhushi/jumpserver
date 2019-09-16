@@ -29,7 +29,7 @@ class UserSerializer(BulkSerializerMixin, serializers.ModelSerializer):
         list_serializer_class = AdaptedBulkListSerializer
         fields = [
             'id', 'name', 'username', 'password', 'email', 'public_key',
-            'groups',  'groups_display',
+            'department', 'groups',  'groups_display',
             'role', 'role_display',  'wechat', 'phone', 'otp_level',
             'comment', 'source', 'source_display', 'is_valid', 'is_expired',
             'is_active', 'created_by', 'is_first_login',

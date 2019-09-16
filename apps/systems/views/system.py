@@ -17,7 +17,7 @@ from common.const import (
 )
 from common.utils import get_logger
 from common.permissions import (
-    PermissionsMixin, IsOrgAdmin,
+    PermissionsMixin, IsOrgAdmin, IsValidUser,
 )
 from orgs.utils import current_org
 from .. import forms
@@ -33,7 +33,7 @@ logger = get_logger(__name__)
 
 class SystemListView(PermissionsMixin, TemplateView):
     template_name = 'systems/system_list.html'
-    permission_classes = [IsOrgAdmin]
+    permission_classes = [IsValidUser]
 
     def get_context_data(self, **kwargs):
         context = {

@@ -1,4 +1,9 @@
 {% load i18n %}
+<li id="systems">
+    <a href="{% url 'systems:system-list' %}">
+        <i class="fa fa-files-o" style="width: 14px"></i><span class="nav-label">{% trans 'My systems' %}</span><span class="label label-info pull-right"></span>
+    </a>
+</li>
 <li id="assets">
     <a href="{% url 'assets:user-asset-list' %}">
         <i class="fa fa-files-o" style="width: 14px"></i><span class="nav-label">{% trans 'My assets' %}</span><span class="label label-info pull-right"></span>

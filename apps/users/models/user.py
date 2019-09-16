@@ -336,7 +336,7 @@ class User(AuthMixin, TokenMixin, RoleMixin, MFAMixin, AbstractUser):
         blank=True, verbose_name=_('User group')
     )
     department = models.ForeignKey(
-        'systems.Department', blank=True, null=True, related_name='department',
+        'systems.Department', blank=True, null=True, related_name='users',
          verbose_name=_('Department'), on_delete=models.SET_NULL,
     )
     role = models.CharField(
@@ -480,6 +480,7 @@ class User(AuthMixin, TokenMixin, RoleMixin, MFAMixin, AbstractUser):
         import forgery_py
         from django.db import IntegrityError
         from .group import UserGroup
+        from systems.models import Department
 
         seed()
         for i in range(count):
@@ -497,4 +498,5 @@ class User(AuthMixin, TokenMixin, RoleMixin, MFAMixin, AbstractUser):
                 print('Duplicate Error, continue ...')
                 continue
             user.groups.add(choice(UserGroup.objects.all()))
+            user.department = choice(Department.objects.all())
             user.save()
