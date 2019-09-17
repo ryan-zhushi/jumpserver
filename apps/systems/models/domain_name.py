@@ -35,5 +35,5 @@ class DomainName(OrgModelMixin):
         verbose_name = _('Domain name')
 
     def __str__(self):
-        return self.domain_name
+        return self.name
 
