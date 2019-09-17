@@ -18,12 +18,9 @@ HEADER_FIELD_DEF = '''
 COLUMN_FIELD_DEF = "{data: \"%s\"}"
 
 module_name = 'system'
-app_name = 'department'
+app_name = 'domain_name'
 fields = [
-    'name', 'principal', 'principal_duty',
-    'principal_ecard', 'principal_email', 'principal_phone',
-    'coordinator', 'coordinator_duty', 'coordinator_ecard',
-    'coordinator_email', 'coordinator_phone', 'coordinator_qq',
+    'name', 'ip', 'type', 'comment',
 ]
 
 bulkupdate_fields = fields
@@ -48,8 +45,10 @@ params = {
     'module_name': module_name,
     'module_name_first_uppercase': module_name.capitalize(),
     'app_name': app_name,
-    'app_name_first_uppercase': app_name.capitalize(),
+    'app_name_first_uppercase': ''.join([name.capitalize() for name in app_name.split('_')]),
+    'app_name_url': app_name.replace('_', '-'),
     'app_fields': "'" + "\', '".join(fields) + "'",
+    'app_fields_num': len(fields) + 1,
     'app_bulkupdate_fields': "'" + "\', '".join(bulkupdate_fields) + "'",
     'app_model_fields': '\n    '.join(char_field_list),
     'app_bootstrap_fields': ''.join(bootstrap_field_list),
