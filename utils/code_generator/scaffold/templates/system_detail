@@ -19,13 +19,13 @@
                     <div class="panel-options">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="{{% url '{module_name}s:{app_name}-detail' pk={app_name}.id %}}" class="text-center"><i class="fa fa-laptop"></i> {{% trans '{app_name_first_uppercase} detail' %}} </a>
+                                <a href="{{% url '{module_name}s:{app_name_url}-detail' pk={app_name}.id %}}" class="text-center"><i class="fa fa-laptop"></i> {{% trans '{app_name_first_uppercase} detail' %}} </a>
                             </li>
                             <li class="pull-right">
-                                <a class="btn btn-outline btn-default" href="{{% url '{module_name}s:{app_name}-update' pk={app_name}.id %}}"><i class="fa fa-edit"></i>{{% trans 'Update' %}}</a>
+                                <a class="btn btn-outline btn-default" href="{{% url '{module_name}s:{app_name_url}-update' pk={app_name}.id %}}"><i class="fa fa-edit"></i>{{% trans 'Update' %}}</a>
                             </li>
                             <li class="pull-right">
-                                <a class="btn btn-outline btn-danger btn-delete-{app_name}">
+                                <a class="btn btn-outline btn-danger btn-delete-{app_name_url}">
                                     <i class="fa fa-trash-o"></i>{{% trans 'Delete' %}}
                                 </a>
                             </li>
@@ -62,12 +62,12 @@
 {{% endblock %}}
 {{% block custom_foot_js %}}
 <script>
-$(document).on('click', '.btn-delete-{app_name}', function () {{
+$(document).on('click', '.btn-delete-{app_name_url}', function () {{
     var $this = $(this);
     var name = "{{{{ {app_name}.name }}}}";
     var uid = "{{{{ {app_name}.id }}}}";
-    var the_url = '{{% url "api-{module_name}s:{app_name}-detail" pk=DEFAULT_PK %}}'.replace('{{{{ DEFAULT_PK }}}}', uid);
-    var redirect_url = "{{% url '{module_name}s:{app_name}-list' %}}";
+    var the_url = '{{% url "api-{module_name}s:{app_name_url}-detail" pk=DEFAULT_PK %}}'.replace('{{{{ DEFAULT_PK }}}}', uid);
+    var redirect_url = "{{% url '{module_name}s:{app_name_url}-list' %}}";
     objectDelete($this, name, the_url, redirect_url);
 }})
 </script>

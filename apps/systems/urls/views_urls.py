@@ -18,4 +18,10 @@ urlpatterns = [
     path('department/<uuid:pk>/update/', views.DepartmentUpdateView.as_view(), name='department-update'),
     path('department/update/', views.DepartmentBulkUpdateView.as_view(), name='department-bulk-update'),
     path('department/<uuid:pk>/', views.DepartmentDetailView.as_view(), name='department-detail'),
+
+    path('domain-name/', views.DomainNameListView.as_view(), name='domain-name-list'),
+    path('domain-name/create/', views.DomainNameCreateView.as_view(), name='domain-name-create'),
+    path('domain-name/<uuid:pk>/update/', views.DomainNameUpdateView.as_view(), name='domain-name-update'),
+    path('domain-name/update/', views.DomainNameBulkUpdateView.as_view(), name='domain-name-bulk-update'),
+    path('domain-name/<uuid:pk>/', views.DomainNameDetailView.as_view(), name='domain-name-detail'),
 ]

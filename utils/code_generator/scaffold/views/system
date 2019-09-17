@@ -48,7 +48,7 @@ class {app_name_first_uppercase}CreateView(PermissionsMixin, SuccessMessageMixin
     model = {app_name_first_uppercase}
     form_class = forms.{app_name_first_uppercase}Form
     template_name = '{module_name}s/{app_name}_create_update.html'
-    success_url = reverse_lazy('{app_name}s:{app_name}-list')
+    success_url = reverse_lazy('{module_name}s:{app_name_url}-list')
     success_message = create_success_msg
     permission_classes = [IsOrgAdmin]
 
@@ -72,7 +72,7 @@ class {app_name_first_uppercase}UpdateView(PermissionsMixin, SuccessMessageMixin
     model = {app_name_first_uppercase}
     form_class = forms.{app_name_first_uppercase}Form
     template_name = '{module_name}s/{app_name}_create_update.html'
-    success_url = reverse_lazy('{app_name}s:{app_name}-list')
+    success_url = reverse_lazy('{module_name}s:{app_name_url}-list')
     success_message = update_success_msg
     permission_classes = [IsOrgAdmin]
 
@@ -105,7 +105,7 @@ class {app_name_first_uppercase}BulkUpdateView(PermissionsMixin, TemplateView):
     model = {app_name_first_uppercase}
     form_class = forms.{app_name_first_uppercase}BulkUpdateForm
     template_name = '{module_name}s/{app_name}_bulk_update.html'
-    success_url = reverse_lazy('{app_name}s:{app_name}-list')
+    success_url = reverse_lazy('{module_name}s:{app_name_url}-list')
     success_message = _("Bulk update {app_name} success")
     form = None
     id_list = None

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block custom_head_css_js %}
+    <link href="{% static 'css/plugins/select2/select2.min.css' %}" rel="stylesheet">
+    <link href="{% static "css/plugins/sweetalert/sweetalert.css" %}" rel="stylesheet">
+    <link href="{% static "css/plugins/datatables/datatables.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" %}" rel="stylesheet">
+    <script src="{% static 'js/plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static "js/plugins/sweetalert/sweetalert.min.js" %}"></script>
+    <script src="{% static "js/plugins/datatables/datatables.min.js" %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="{% url 'systems:domain-name-detail' pk=domain_name.id %}" class="text-center"><i class="fa fa-laptop"></i> {% trans 'DomainName detail' %} </a>
+                            </li>
+                            <li class="pull-right">
+                                <a class="btn btn-outline btn-default" href="{% url 'systems:domain-name-update' pk=domain_name.id %}"><i class="fa fa-edit"></i>{% trans 'Update' %}</a>
+                            </li>
+                            <li class="pull-right">
+                                <a class="btn btn-outline btn-danger btn-delete-domain-name">
+                                    <i class="fa fa-trash-o"></i>{% trans 'Delete' %}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="col-sm-12" style="padding-left: 0">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label"><b>{{ domain_name.name }}</b></span>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <table class="table">
+                                        <tbody>
+                                        
+                                        <tr class="no-borders-tr">
+                                            <td width="20%">{% trans 'Name' %}:</td>
+                                            <td><b>{{ domain_name.name }}</b></td>
+                                        </tr>
+                                        <tr class="no-borders-tr">
+                                            <td width="20%">{% trans 'Ip' %}:</td>
+                                            <td><b>{{ domain_name.ip }}</b></td>
+                                        </tr>
+                                        <tr class="no-borders-tr">
+                                            <td width="20%">{% trans 'Type' %}:</td>
+                                            <td><b>{{ domain_name.type }}</b></td>
+                                        </tr>
+                                        <tr class="no-borders-tr">
+                                            <td width="20%">{% trans 'Comment' %}:</td>
+                                            <td><b>{{ domain_name.comment }}</b></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_foot_js %}
+<script>
+$(document).on('click', '.btn-delete-domain-name', function () {
+    var $this = $(this);
+    var name = "{{ domain_name.name }}";
+    var uid = "{{ domain_name.id }}";
+    var the_url = '{% url "api-systems:domain-name-detail" pk=DEFAULT_PK %}'.replace('{{ DEFAULT_PK }}', uid);
+    var redirect_url = "{% url 'systems:domain-name-list' %}";
+    objectDelete($this, name, the_url, redirect_url);
+})
+</script>
+{% endblock %}
+

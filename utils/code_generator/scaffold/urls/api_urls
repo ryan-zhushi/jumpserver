@@ -10,7 +10,7 @@ from .. import api
 app_name = '{app_name}s'
 
 router = BulkRouter()
-router.register(r'{app_name}s', api.{app_name_first_uppercase}ViewSet, '{app_name}')
+router.register(r'{app_name}s', api.{app_name_first_uppercase}ViewSet, '{app_name_url}')
 
 urlpatterns = [
 

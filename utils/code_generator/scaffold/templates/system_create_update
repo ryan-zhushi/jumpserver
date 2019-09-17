@@ -46,11 +46,11 @@ $(document).ready(function () {{
 }})
 .on("submit", "form", function (evt) {{
     evt.preventDefault();
-    var the_url = '{{% url 'api-{module_name}s:{app_name}-list' %}}';
-    var redirect_to = '{{% url "{module_name}s:{app_name}-list" %}}';
+    var the_url = '{{% url 'api-{module_name}s:{app_name_url}-list' %}}';
+    var redirect_to = '{{% url "{module_name}s:{app_name_url}-list" %}}';
     var method = "POST";
     {{% if type == "update" %}}
-        the_url = '{{% url 'api-{module_name}s:{app_name}-detail' pk=object.id %}}';
+        the_url = '{{% url 'api-{module_name}s:{app_name_url}-detail' pk=object.id %}}';
         method = "PUT";
     {{% endif %}}
     var form = $("form");
